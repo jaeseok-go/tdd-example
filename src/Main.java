@@ -14,26 +14,39 @@ public class Main {
     @Test
     void 어떤_금액을_어떤_수에_곱한_금액을_얻는다() {
         // given
-        Money oneWon = Money.won(1);
+        Money oneWon = Money.of(1, Currency.WON);
 
         // when
         Money twoWon = oneWon.times(2);
 
         // then
-        Assertions.assertEquals(Money.won(2), twoWon);
+        Assertions.assertEquals(Money.of(2, Currency.WON), twoWon);
     }
 
     @Test
     void 어떤_금액과_어떤_금액을_더한_금액을_얻는다() {
         // given
-        Money oneWon = Money.won(1);
+        Money oneWon = Money.of(1, Currency.WON);
 
         // when
-        Money twoWon = oneWon.plus(Money.won(1));
-        Money threeWon = oneWon.plus(Money.won(2));
+        Money twoWon = oneWon.plus(Money.of(1, Currency.WON));
+        Money threeWon = oneWon.plus(Money.of(2, Currency.WON));
 
         // then
-        Assertions.assertEquals(Money.won(2), twoWon);
-        Assertions.assertEquals(Money.won(3), threeWon);
+        Assertions.assertEquals(Money.of(2, Currency.WON), twoWon);
+        Assertions.assertEquals(Money.of(3, Currency.WON), threeWon);
+    }
+
+    @Test
+    void 어떤_통화를_다른_통화로_환전한다() {
+        // given
+        Money thousandWon = Money.of(1000, Currency.WON);
+
+        // when
+        Money oneDollar = Exchanger.exchangeTo(thousandWon, Currency.DOLLAR);
+        double exceptedAmount = Exchanger.exchangeRates.get(new Exchanger.CurrencyPair(Currency.WON, Currency.DOLLAR)).doubleValue() * 1000;
+
+        // then
+        Assertions.assertEquals(Money.of(exceptedAmount, Currency.DOLLAR), oneDollar);
     }
 }
