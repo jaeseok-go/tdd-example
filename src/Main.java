@@ -22,4 +22,18 @@ public class Main {
         // then
         Assertions.assertEquals(Money.won(2), twoWon);
     }
+
+    @Test
+    void 어떤_금액과_어떤_금액을_더한_금액을_얻는다() {
+        // given
+        Money oneWon = Money.won(1);
+
+        // when
+        Money twoWon = oneWon.plus(Money.won(1));
+        Money threeWon = oneWon.plus(Money.won(2));
+
+        // then
+        Assertions.assertEquals(Money.won(2), twoWon);
+        Assertions.assertEquals(Money.won(3), threeWon);
+    }
 }

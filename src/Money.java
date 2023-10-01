@@ -13,6 +13,10 @@ public class Money {
         return new Money(amount * number);
     }
 
+    public Money plus(Money money) {
+        return new Money(amount + money.amount);
+    }
+
     @Override
     public boolean equals(Object o) {
         Money money = (Money) o;
