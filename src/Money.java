@@ -13,11 +13,15 @@ public class Money {
     }
 
     public Money times(double number) {
-        return new Money(amount * number, currency);
+        return Money.of(amount * number, currency);
     }
 
     public Money plus(Money money) {
-        return new Money(amount + money.amount, currency);
+        double plusAmount = money.currency().equals(currency) ?
+                money.amount() :
+                Exchanger.exchangeTo(money, currency).amount();
+
+        return Money.of(amount + plusAmount, currency);
     }
 
     public double amount() {

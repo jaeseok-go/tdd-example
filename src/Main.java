@@ -49,4 +49,19 @@ public class Main {
         // then
         Assertions.assertEquals(Money.of(exceptedAmount, Currency.DOLLAR), oneDollar);
     }
+
+    @Test
+    void 특정_통화의_금액과_다른_통화의_금액을_더할_수_있다() {
+        // given
+        Money thousandWon = Money.of(1000, Currency.WON);
+        Money oneDollar = Money.of(1, Currency.DOLLAR);
+
+        // when
+        Money firstResult = thousandWon.plus(oneDollar);
+        Money secondResult = oneDollar.plus(thousandWon);
+
+        // then
+        Assertions.assertEquals(Money.of(1000 + 1352.92, Currency.WON), firstResult);
+        Assertions.assertEquals(Money.of(1 + (1000 * 0.00074), Currency.DOLLAR), secondResult);
+    }
 }
